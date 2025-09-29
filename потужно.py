@@ -51,6 +51,7 @@ NOTES / HINTS
   slicing (e.g., s[:4], s[::-1]), comparisons, boolean ops, f-strings.
 """
 import string
+import sys
 
 username = input("Username: ")
 password = input("Password: ")
@@ -58,44 +59,44 @@ password = input("Password: ")
 # після гугла ясно шо краще всього користуватись сетами в пайтон, вони ідеально підходять; & - пересічення. якшо є пересічення - ззнач все добре; ascii_letters - алфавіт маленькими і капсом
 if not username or not password:
     print("REJECT")
-    exit(67)
+    sys.exit(67)
 # if len(password) >= 10 or len(password) <= 64 or not set("0123456789") & set(password) or not set(string.ascii_letters) & set(password) or not set("!@#$%^&*()-_=+[]{};:,.?/\\|") & set(password) or set(" \t") & set(password) or not set(password[0]) & set(string.ascii_letters) or not username.lower() in password.lower() or not username[::-1].lower() in password.lower() or not any(sub in password.lower() for sub in ["password", "qwerty", "12345", "god", "admin"]): нечитаємо, переробити
 #    print("ok")
 if len(password) < 10 or len(password) > 64:
     print("REJECT")
-    exit(1)
+    sys.exit(1)
 if not set("0123456789") & set(password):
     print("REJECT")
-    exit(2)
+    sys.exit(2)
 if not set(string.ascii_lowercase) & set(password):
     print("REJECT")
-    exit(3)
+    sys.exit(3)
 if not set(string.ascii_uppercase) & set(password):
     print("REJECT")
-    exit(4)
+    sys.exit(4)
 if not set("! @ # $ % ^ & * ( ) - _ = + [ ] { } ; : , . ? / \\ |".replace(" ", '')) & set(password):
     print("REJECT")
-    exit(5)
+    sys.exit(5)
 if set(" \t") & set(password):
     print("REJECT")
-    exit(6)
+    sys.exit(6)
 if not password[0] in string.ascii_letters:
     print("REJECT")
-    exit(7)
+    sys.exit(7)
 if username.lower() in password.lower():
     print("REJECT")
-    exit(8)
+    sys.exit(8)
 if username.lower()[::-1] in password.lower():
     print("REJECT")
-    exit(9)
+    sys.exit(9)
 if any(weak in password.lower() for weak in ["password", "12345", "god", "qwerty", "admin"]):
     print("REJECT")
-    exit(10)
+    sys.exit(10)
 score = 0
 
 if password[-1] in "0123456789! @ # $ % ^ & * ( ) - _ = + [ ] { } ; : , . ? / \\ |".replace(" ", ''):
     score += 1 # ЧОМУ НЕМА ++SCORE ;-;
-if any(special in password for special in ['-', '_']):
+if all(special in password for special in ['-', '_']):
     score += 1
 if any(special2 in password for special2 in ['@', '#']):
     score += 1
